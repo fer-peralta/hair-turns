@@ -10,4 +10,3 @@ app.use("/api", apiRouter)
 
 // app.get('/', async (req, res) => {
 //     res.render("home", { products: await container.getAll() })
-// })
