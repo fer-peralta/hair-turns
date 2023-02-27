@@ -1,9 +1,26 @@
 import express from "express"
+import { getTurnsController } from "../controllers/turn.controller.js"
+import { loggerInfo, loggerError, loggerWarn } from "../logs/logger.js"
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-    res.send({ mensaje: 'hola mundo' })
+// router.get('/', (req, res) => {
+//     res.send({ mensaje: 'hola mundo' })
+// })
+
+router.get("/", async (req, res) => {
+    try {
+        const response = await getTurnsController()
+        if (response) {
+            res.status(200).json(response)
+        }
+        else {
+            res.status(200).json("No hay nada")
+        }
+    } catch (error) {
+        loggerError.error(error)
+        res.status(400).json({ message: `Hubo un error ${error}` })
+    }
 })
 
 //* Turns
@@ -34,6 +51,11 @@ router.get('/turns/:day', (req, res) => {
 
 router.post('/turns', (req, res) => {
     res.send({ mensaje: 'Turno sacado con exito' })
+})
+
+router.delete('/turns/:day', (req, res) => {
+    const day = parseInt(req.params.day)
+    res.send({ mensaje: `turno borrado ${day}` })
 })
 
 //* 404
