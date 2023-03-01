@@ -1,4 +1,7 @@
+import { loggerInfo, loggerError } from "../../logs/logger.js";
+
 // import { convertToDto } from "../dtos/user.dto.js";
+loggerInfo
 
 export class MongoContainer {
     constructor(model) {
@@ -8,22 +11,23 @@ export class MongoContainer {
     async saveData(data) {
         try {
             const object = await this.model.create(data);
-            return `new document saved with id: ${object._id}`
+            return `New document was saved with the id: ${object._id}`
         } catch (error) {
+            loggerError.error({ message: `Error al guardar: ${error}` })
             return { message: `Error al guardar: ${error}` };
         }
     }
 
-    //     async getAll() {
-    //     try {
-    //         const response = await this.model.find();
-    //         const data = JSON.parse(JSON.stringify(response))
-    //         const responseDto = convertToDto(data)
-    //         return responseDto;
-    //     } catch (error) {
-    //         throw new Error(`Hubo un error ${error}`)
-    //     }
-    // }
+    async getAll() {
+        try {
+            const response = await this.model.find();
+            const data = JSON.parse(JSON.stringify(response))
+            // const responseDto = convertToDto(data)
+            return data;
+        } catch (error) {
+            throw new Error(`Hubo un error ${error}`)
+        }
+    }
 
 }
 

@@ -1,0 +1,9 @@
+Turn {
+    name
+    dni
+    gender
+    age
+    day
+},{
+    timestamp
+}

@@ -5,8 +5,9 @@ import { loggerInfo, loggerError } from "./logs/logger.js"
 
 const app = express()
 
-const date = new Date().toLocaleTimeString()
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-const server = app.listen(config.PORT, () => { loggerInfo.info(`Server listening on ${config.PORT} and process ${process.pid}, ${date}`) })
+const server = app.listen(config.PORT, () => { loggerInfo.info(`Server listening on ${config.PORT} and process ${process.pid}, ${new Date().toLocaleTimeString()}`) })
 
 app.use("/api", apiRouter)

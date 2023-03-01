@@ -3,7 +3,7 @@ import { getTurns, findTurn, saveTurn } from "../services/turn.service.js";
 export const getTurnsController = async (req, res) => {
     try {
         const response = await getTurns();
-        return ({ data: response })
+        return response ? ({ data: response }) : { message: `No hay turnos` }
     } catch (error) {
         return { message: `Hubo un error ${error}` }
     }
@@ -11,7 +11,7 @@ export const getTurnsController = async (req, res) => {
 
 export const saveTurnController = async (req, res) => {
     try {
-        const response = await saveTurn(req.body);
+        const response = await saveTurn(req);
         return ({ data: response })
     } catch (error) {
         return { message: `Hubo un error ${error}` }
