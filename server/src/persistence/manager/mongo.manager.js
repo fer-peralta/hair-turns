@@ -1,8 +1,5 @@
 import { loggerInfo, loggerError } from "../../logs/logger.js";
-
 // import { convertToDto } from "../dtos/user.dto.js";
-loggerInfo
-
 export class MongoContainer {
     constructor(model) {
         this.model = model
@@ -13,8 +10,8 @@ export class MongoContainer {
             const object = await this.model.create(data);
             return `New document was saved with the id: ${object._id}`
         } catch (error) {
-            loggerError.error({ message: `Error al guardar: ${error}` })
-            return { message: `Error al guardar: ${error}` };
+            loggerError.error({ message: `There was an error saving the document: ${error}` })
+            return { message: `There was an error saving the document: ${error}` };
         }
     }
 
@@ -25,90 +22,58 @@ export class MongoContainer {
             // const responseDto = convertToDto(data)
             return data;
         } catch (error) {
-            throw new Error(`Hubo un error ${error}`)
+            loggerError.error({ message: `There was an error showing the documents: ${error}` })
+            return { message: `There was an error showing the documents: ${error}` };
+
         }
     }
 
+    async getById(id) {
+        try {
+            const documentToFind = await this.model.findById(id);
+            if (!documentToFind) {
+                return { message: `There was an error, ${id} not found`, error: true };
+            } else {
+                // const responseDto = convertToDto(object)
+                // return { message: responseDto, error: false };
+                return { message: `Document found succesfully: ${documentToFind}`, error: false };
+            }
+        } catch (error) {
+            loggerError.error({ message: `There was an error searching the document with the id ${id}: ${error}`})
+            return { message: `There was an error searching the document with the id ${id}: ${error}`, error: true };
+        }
+    }
+
+    async updateById(id, body) {
+        try {
+            const documentToupdate = await this.model.findById(id)
+            if(documentToupdate){
+                await this.model.findByIdAndUpdate(id, body)
+                const newData = await this.getById(id)
+                return { message: "Document update successfully", newData}
+            }
+            else {
+                return { message: `There was an error, document with the id ${id} not found` }
+            }
+        } catch (error) {
+            loggerError.error({ message: `There was an error updating the document with the id ${id}: ${error}`})
+            return { message: `There was an error updating the document with the id ${id}: ${error}` };
+        }
+    }
+
+    async deleteById(id) {
+        try {
+            const documentToDelete = await this.model.findById(id)
+            if(documentToDelete) {
+                await this.model.findByIdAndDelete(id) 
+                return { message: "Document deleted successfully" }
+            }
+            else {
+                return { message: `There was an error, document with the id ${id} not found` }
+            }
+        } catch (error) {
+            loggerError.error({ message: `There was an error deleting the document with the id ${id}: ${error}`})
+            return { message: `There was an error deleting the document with the id ${id}: ${error}` };
+        }
+    }
 }
-
-
-// class MongoContainer {
-//     constructor(model) {
-//         this.model = model;
-//     }
-
-//     async getById(id) {
-//         try {
-//             const object = await this.model.findById(id);
-//             if (!object) {
-//                 return { message: `Error al buscar: no se encontró el id ${id}`, error: true };
-//             } else {
-//                 const responseDto = convertToDto(object)
-//                 console.log(responseDto)
-//                 return { message: responseDto, error: false };
-//             }
-//         } catch (error) {
-//             return { message: `Hubo un error ${error}`, error: true };
-//         }
-//     }
-
-//     async getAll() {
-//         try {
-//             const response = await this.model.find();
-//             const data = JSON.parse(JSON.stringify(response))
-//             const responseDto = convertToDto(data)
-//             return responseDto;
-//         } catch (error) {
-//             throw new Error(`Hubo un error ${error}`)
-//         }
-//     }
-
-//     async save(body) {
-//         try {
-//             const object = await this.model.create(body);
-//             return `new document saved with id: ${object._id}`
-//         } catch (error) {
-//             return { message: `Error al guardar: ${error}` };
-//         }
-//     }
-
-//     async updateById(body, id) {
-//         try {
-//             await this.model.findByIdAndUpdate(id, body, { new: true });
-//             return { message: "Update successfully" }
-//         } catch (error) {
-//             return { message: `Error al actualizar: no se encontró el id ${id}` };
-//         }
-//     }
-
-//     async deleteById(id) {
-//         try {
-//             await this.model.findByIdAndDelete(id);
-//             return { message: "delete successfully" };
-//         } catch (error) {
-//             return { message: `Error al borrar: no se encontró el id ${id}` };
-//         }
-//     }
-
-//     async deleteAll() {
-//         try {
-//             await this.model.delete({});
-//             return { message: "delete successfully" }
-//         } catch (error) {
-//             return { message: `Error al borrar todo: ${error}` };
-//         }
-//     }
-
-//     async findOne(datos) {
-//         try {
-//             const user = await this.model(
-//                 { username: datos.username })
-//             return user
-//         } catch (err) {
-//             console.log(err);
-//         }
-
-//     }
-// }
-
-// export { MongoContainer }

@@ -11,6 +11,14 @@ export const getTurns = async () => {
     return await TurnDaoContainer.getAll();
 }
 
-export const findTurn = async (body) => {
-    return await TurnDaoContainer.findOne(body)
+export const findTurn = async (id) => {
+    return await TurnDaoContainer.getById(id)
+}
+
+export const updateTurn = async (id, body) => {
+    return await TurnDaoContainer.updateById(id, body)
+}
+
+export const deleteTurn = async (id) => {
+    return await TurnDaoContainer.deleteById(id)
 }

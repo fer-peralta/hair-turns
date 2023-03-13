@@ -1,9 +1,9 @@
 import express from "express";
-const router = express.Router()
 
 import { getUsersController, saveUserController } from "../../controllers/user.controller.js"
 import { loggerInfo, loggerError, loggerWarn } from "../../logs/logger.js"
 
+const router = express.Router()
 
 router.get('/', async (req, res) => {
     try {
