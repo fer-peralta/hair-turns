@@ -1,35 +1,17 @@
 import express from "express";
 
-import { getUsersController, saveUserController } from "../../controllers/user.controller.js"
-import { loggerInfo, loggerError, loggerWarn } from "../../logs/logger.js"
+import { findUserController, getUsersController, saveUserController, updateUserController, deleteUserController } from "../../controllers/user.controller.js"
 
 const router = express.Router()
 
-router.get('/', async (req, res) => {
-    try {
-        const response = await getUsersController()
-        if (response) {
-            res.status(200).json(response)
-        }
-        else {
-            res.status(200).json("No hay nada")
-        }
-    } catch (error) {
-        loggerError.error(error)
-        res.status(400).json({ message: `Hubo un error ${error}` })
-    }
-})
+router.get('/', getUsersController)
 
-router.post('/', async (req, res) => {
-    try {
-        const response = await saveUserController(req.body)
-        loggerInfo.info(response)
-        res.status(200).json({ data: [response, `Usuario Encontrado`] })
-    } catch (error) {
-        loggerError.error(error)
-        res.status(400).json({ message: `Hubo un error: ${error}` })
-    }
-})
+router.get('/:userId', findUserController)
 
+router.post('/', saveUserController)
+
+router.put('/:userId', updateUserController)
+
+router.delete('/:userId', deleteUserController)
 
 export { router as userRouter }

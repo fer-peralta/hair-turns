@@ -11,6 +11,14 @@ export const getUsers = async () => {
     return await UserDaoContainer.getAll();
 }
 
-export const findUser = async (body) => {
-    return await UserDaoContainer.findOne(body)
+export const findUser = async (id) => {
+    return await UserDaoContainer.getById(id)
+}
+
+export const updateUser = async (id) => {
+    return await UserDaoContainer.updateById(id)
+}
+
+export const deleteUser = async (id) => {
+    return await UserDaoContainer.deleteById(id)
 }

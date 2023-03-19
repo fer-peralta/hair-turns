@@ -19,7 +19,6 @@ export class MongoContainer {
         try {
             const response = await this.model.find();
             const data = JSON.parse(JSON.stringify(response))
-            // const responseDto = convertToDto(data)
             return data;
         } catch (error) {
             loggerError.error({ message: `There was an error showing the documents: ${error}` })
@@ -34,9 +33,7 @@ export class MongoContainer {
             if (!documentToFind) {
                 return { message: `There was an error, ${id} not found`, error: true };
             } else {
-                // const responseDto = convertToDto(object)
-                // return { message: responseDto, error: false };
-                return { message: `Document found succesfully: ${documentToFind}`, error: false };
+                return { message: `Document found succesfully:`, data: documentToFind, error: false };
             }
         } catch (error) {
             loggerError.error({ message: `There was an error searching the document with the id ${id}: ${error}`})
