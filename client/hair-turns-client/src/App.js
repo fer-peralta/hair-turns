@@ -1,19 +1,18 @@
-import logo1 from './logo1.png';
 import './App.css';
-
+import './components/Navbar/Navbar.js'
+import './components/Navbar/Navbar.css'
+import './components/MainTurn/MainTurn.js'
+import './components/MainTurn/MainTurn.css'
+import Navbar from './components/Navbar/Navbar.js';
+import MainTurn from './components/MainTurn/MainTurn';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h2>Bienvenidos</h2>
-        <h1>Hair Turns client</h1>
-        <img src={logo1} className="App-logo" alt="logo" />
+    <>
+      <MainTurn />
+      <Navbar />
+    </>
 
-
-        <button className="btn">Ingresa</button>
-      </header>
-    </div>
-  );
+  )
 }
 
 export default App;

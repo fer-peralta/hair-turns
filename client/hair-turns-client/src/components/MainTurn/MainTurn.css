@@ -1,0 +1,75 @@
+.contenedor {
+    margin: auto;
+    width: auto;
+    border-width: 1.5px;
+    /* border-style: dotted;
+    border-color: black; */
+}
+
+.contenedorForm {
+    display: list-item;
+    text-align: center;
+    align-items: center;
+}
+
+form input {
+    margin: 0.5rem;
+}
+
+.contenedor {
+    padding: 2rem;
+    border-radius: 30px;
+    margin: auto;
+    background-image: radial-gradient(circle, rgba(191, 213, 224, 1) 0%, rgba(81, 194, 223, 0.835) 80%, rgba(0, 82, 186, 1) 100%);
+    ;
+    min-width: 300px;
+    height: auto;
+    width: 30%;
+    border: rgba(0, 212, 255, 1) solid 1.5px;
+    box-shadow: 10px 6px 10px rgba(0, 0, 0, 0.5);
+    padding-top: 3rem;
+    margin-top: 2rem;
+    text-align: center;
+    /* border: 1px solid black;  */
+}
+
+/*BTN*/
+.btn {
+    background: linear-gradient(-45deg, #004eb5, #9f69fe, #27c8b7, #0012b5);
+    background-size: 800% 400%;
+    padding: 1em 2em;
+    margin: 1rem;
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+    animation: gradient 10s infinite cubic-bezier(.62, .28, .23, .99) both;
+}
+
+.btn:hover {
+    animation: gradient 3s infinite;
+    transform: scale(1.05);
+}
+
+.btn:active {
+    animation: gradient 3s infinite;
+    transform: scale(0.8);
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

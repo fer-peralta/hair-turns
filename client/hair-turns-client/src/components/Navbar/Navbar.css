@@ -1,0 +1,32 @@
+.nav_container {
+
+    background: linear-gradient(90deg, rgb(4, 49, 92) 0%, rgba(20, 126, 187, 0.904) 0%, rgba(0, 212, 255, 1) 100%);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border: 3px solid #739bf1;
+    border-radius: 15px 15px 0 0;
+}
+
+.ul_nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    list-style-type: none;
+    gap: 1rem;
+    padding: 0;
+}
+
+.nav_button {
+    background: #73d4f1;
+    text-decoration: none;
+    border-radius: 15px 15px 0 0;
+    padding: 8px;
+}
+
+.nav_button:hover {
+    background-color: rgb(142, 232, 255);
+    color: #000000;
+    cursor: pointer;
+}
